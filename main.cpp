@@ -26,10 +26,11 @@ class BigInt
 int main()
 {
     int x;
-    BigInt numar1, numar2("4321"), numar3;// numar3(3456);
+    BigInt numar1, numar2("1234"), numar3;// numar3(3456);
     cin>>numar1;
     cout<<numar1;
-    numar2 = numar1 + numar2;
+    numar3 = numar1 + numar2;
+    cout << numar3;
 }
 
 /*
@@ -100,25 +101,24 @@ ostream &operator<<(ostream &os, BigInt&nr)
     return os;
 }
 
-///Adunare nefunctionala
-/*BigInt& operator+(BigInt& nr1, BigInt& nr2)
+///Adunare - merge
+BigInt& operator+(BigInt& nr1, BigInt& nr2)
 {
     int aux[200]={0}, T = 0, lungime_t;
     lungime_t = min(nr1.lungime, nr2.lungime);
+    // le inversez ca sa pot calcula cum trebuie
+    nr1.inversare(); nr2.inversare();
     if(nr1.lungime > nr2.lungime)
     {
         for(int i = 0; i < lungime_t; i++)
         {
-            int ind = nr1.lungime - i - 1;
-            int ind2 = lungime_t - i - 1;
-            aux[i] = nr1.numar[ind] + nr2.numar[ind2]+ T;
+            aux[i] = nr1.numar[i] + nr2.numar[i]+ T;
             T = aux[i]/10;
             aux[i] = aux[i] % 10;
         }
         for(int i = lungime_t; i < nr1.lungime; i++)
         {
-            int ind  = lungime_t - i;
-            aux[i] = nr1.numar[ind] + T;
+            aux[i] = nr1.numar[i] + T;
             T = aux[i]/10;
             aux[i] %=10;
         }
@@ -128,16 +128,13 @@ ostream &operator<<(ostream &os, BigInt&nr)
     {
         for(int i = 0; i < lungime_t; i++)
         {
-            int ind = nr2.lungime - i - 1;
-            int ind2 = lungime_t - i - 1;
-            aux[i] = nr1.numar[ind2] + nr2.numar[ind]+ T;
+            aux[i] = nr1.numar[i] + nr2.numar[i]+ T;
             T = aux[i]/10;
             aux[i] = aux[i] % 10;
         }
         for(int i = lungime_t; i < nr2.lungime; i++)
         {
-            int ind  = lungime_t - i;
-            aux[i] = nr2.numar[ind] + T;
+            aux[i] = nr2.numar[i] + T;
             T = aux[i]/10;
             aux[i] %=10;
         }
@@ -146,8 +143,7 @@ ostream &operator<<(ostream &os, BigInt&nr)
     else {
         for(int i = 0; i < lungime_t; i++)
         {
-            int ind = lungime_t - i -1;
-            aux[i] = nr1.numar[ind] + nr2.numar[ind]+ T;
+            aux[i] = nr1.numar[i] + nr2.numar[i]+ T;
             T = aux[i]/10;
             aux[i] = aux[i] % 10;
         }
@@ -155,9 +151,11 @@ ostream &operator<<(ostream &os, BigInt&nr)
     if(T)
         aux[lungime_t++] = T;
     BigInt rezultat(aux, lungime_t);
+    //aducem numerele la forma potrivita
+    rezultat.inversare();
+    nr1.inversare(); nr2.inversare();
     return rezultat;
-}*/
-
+}
 ///ALTE FUNCTII
 int BigInt::getLungime(){
     return this->lungime;
