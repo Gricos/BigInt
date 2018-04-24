@@ -16,6 +16,7 @@ class BigInt
         ///alte functii
         void Afisare();
         int getLungime();
+        void inversare();
         ///friend
         friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
         friend istream &operator>>(istream &is, BigInt&nr);
@@ -25,26 +26,10 @@ class BigInt
 int main()
 {
     int x;
-    BigInt numar1, numar2("1234"), numar3;// numar3(3456);
-
+    BigInt numar1, numar2("4321"), numar3;// numar3(3456);
     cin>>numar1;
-
-    cout<<"Lungimea din getLungime() este: "<<numar1.getLungime()<<'\n'<<'\n';
-
     cout<<numar1;
-
-
-    cout<<"Lungimea din getLungime() este: "<<numar2.getLungime()<<'\n'<<'\n';
-
-    cout<<numar2;
-
-    //numar3=numar1+numar2;
-
-    cout<<"Lungimea din getLungime() este: "<<numar3.getLungime()<<'\n'<<'\n';
-
-    cout<<numar3;
-    numar2 = numar2 + numar1;
-    cout << numar2;
+    numar2 = numar1 + numar2;
 }
 
 /*
@@ -109,35 +94,78 @@ ostream &operator<<(ostream &os, BigInt&nr)
 {
     os<<"Lungimea numarului este : "<<nr.lungime<<'\n';
     os<<"Numarul este : ";
-    for(int i = 0; i <= nr.lungime - 1; i++)
+    for(int i = 0; i < nr.lungime ; i++)
         os << nr.numar[i];
     os<<'\n'<<'\n';
     return os;
 }
 
-/// Adunare nefunctionala.
-
-BigInt& operator+(BigInt& nr1, BigInt& nr2)
+///Adunare nefunctionala
+/*BigInt& operator+(BigInt& nr1, BigInt& nr2)
 {
     int aux[200]={0}, T = 0, lungime_t;
     lungime_t = min(nr1.lungime, nr2.lungime);
-    for(int i = 0; i < lungime_t; i++)
+    if(nr1.lungime > nr2.lungime)
     {
-        int ind = lungime_t - i -1;
-        aux[i] = nr1.numar[ind] + nr2.numar[ind]+ T;
-        cout << aux[i] << " ";
-        T = aux[i]/10;
-        cout << T << endl;
-        aux[i] = aux[i] % 10;
+        for(int i = 0; i < lungime_t; i++)
+        {
+            int ind = nr1.lungime - i - 1;
+            int ind2 = lungime_t - i - 1;
+            aux[i] = nr1.numar[ind] + nr2.numar[ind2]+ T;
+            T = aux[i]/10;
+            aux[i] = aux[i] % 10;
+        }
+        for(int i = lungime_t; i < nr1.lungime; i++)
+        {
+            int ind  = lungime_t - i;
+            aux[i] = nr1.numar[ind] + T;
+            T = aux[i]/10;
+            aux[i] %=10;
+        }
+        lungime_t = nr1.lungime;
     }
-    //INCA NU E GATAAAA DAR E APROAPE
+    else if(nr1.lungime < nr2.lungime)
+    {
+        for(int i = 0; i < lungime_t; i++)
+        {
+            int ind = nr2.lungime - i - 1;
+            int ind2 = lungime_t - i - 1;
+            aux[i] = nr1.numar[ind2] + nr2.numar[ind]+ T;
+            T = aux[i]/10;
+            aux[i] = aux[i] % 10;
+        }
+        for(int i = lungime_t; i < nr2.lungime; i++)
+        {
+            int ind  = lungime_t - i;
+            aux[i] = nr2.numar[ind] + T;
+            T = aux[i]/10;
+            aux[i] %=10;
+        }
+        lungime_t = nr2.lungime;
+    }
+    else {
+        for(int i = 0; i < lungime_t; i++)
+        {
+            int ind = lungime_t - i -1;
+            aux[i] = nr1.numar[ind] + nr2.numar[ind]+ T;
+            T = aux[i]/10;
+            aux[i] = aux[i] % 10;
+        }
+    }
     if(T)
         aux[lungime_t++] = T;
     BigInt rezultat(aux, lungime_t);
     return rezultat;
-}
+}*/
 
 ///ALTE FUNCTII
 int BigInt::getLungime(){
     return this->lungime;
+}
+void BigInt::inversare(){
+    int x[100];
+    for(int i = 0; i < this->lungime; i++)
+        x[i] = this->numar[i];
+    for(int i = 0; i < this->lungime; i++)
+        this->numar[i] = x[this->lungime - i - 1];
 }
