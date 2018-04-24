@@ -9,38 +9,35 @@ class BigInt
         int *numar, lungime;
     public:
         // ~BigInt();
-        BigInt();
-        void citeste_Numar();
+        BigInt(unsigned long int u=0);
+        BigInt(string s="");
         void Afisare();
-        int getLungime();
         friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
+        friend istream &operator>>(istream &is, BigInt&nr);
+        friend ostream &operator<<(ostream &os, BigInt&nr);
 };
 
 int main()
 {
     int x;
-    BigInt numar1, numar2, numar3;
+    BigInt numar1, numar2("1234");// numar3(3456);
 
-    numar1.citeste_Numar();
+    cin>>numar1;
 
-    x=numar1.getLungime();
     cout<<"Lungimea din getLungime() este: "<<x<<'\n'<<'\n';
 
-    numar1.Afisare();
+    cout<<numar1;
 
-    numar2.citeste_Numar();
 
-    x=numar2.getLungime();
     cout<<"Lungimea din getLungime() este: "<<x<<'\n'<<'\n';
 
-    numar2.Afisare();
+    cout<<numar2;
 
-   // numar3=numar1+numar2;
+    //numar3=numar1+numar2;
 
-    x=numar3.getLungime();
     cout<<"Lungimea din getLungime() este: "<<x<<'\n'<<'\n';
 
-    numar3.Afisare();
+    cout<<numar3;
 }
 
 /*
@@ -49,61 +46,67 @@ BigInt::~BigInt()
   cout << "A mers";
   delete numar;
   delete &lungime;
-}*/
-
-BigInt::BigInt()
-{
-    this->numar=NULL;
-    this->lungime=0;
 }
+*/
 
-void BigInt::citeste_Numar()
+/*
+BigInt::BigInt(unsigned long int u)
 {
-    int ln, i;
-    string str;
-    cin>>str;
-    ln=str.length();
+    int ln, aux, i;
+    while(u!=0)
+    {
+        aux=aux/10;
+        ln++;
+    }
     this->lungime=ln;
     this->numar = new int[ln];
     for(i=0;i<=ln-1;i++)
-        this->numar[i]=str[i]-'0';
+    {
+        this->numar[i]=u%10;
+        u=u/10;
+    }
+}
+*/
+BigInt::BigInt(string s)
+{
+    int ln, i;
+    ln=s.length();
+    this->lungime=ln;
+    this->numar = new int[ln];
+    for(i=0;i<=ln-1;i++)
+        this->numar[i]=s[i]-'0';
 }
 
-void BigInt::Afisare()
+istream &operator>>(istream &is, BigInt&nr)
 {
-    cout<<"Lungimea numarului este : "<<this->lungime<<'\n';
-    cout<<"Numarul este : ";
-    for(int i = 0; i <= this->lungime - 1; i++)
-        cout << *(this->numar + i);
-    cout<<'\n'<<'\n';
+    int ln, i;
+    string str;
+    is>>str;
+    ln=str.length();
+    nr.lungime=ln;
+    nr.numar = new int[ln];
+    for(i=0;i<=ln-1;i++)
+        nr.numar[i]=str[i]-'0';
+    return is;
 }
 
-int BigInt::getLungime()
+ostream &operator<<(ostream &os, BigInt&nr)
 {
-    return this->lungime;
+    os<<"Lungimea numarului este : "<<nr.lungime<<'\n';
+    os<<"Numarul este : ";
+    for(int i = 0; i <= nr.lungime - 1; i++)
+        os << nr.numar[i];
+    os<<'\n'<<'\n';
+    return os;
 }
 
 /// Adunare nefunctionala.
-/*
+
 
 BigInt& operator+(BigInt& nr1, BigInt& nr2)
 {
-    int rest=0, i;
-    BigInt nr3;
-    nr3.lungime=max(nr1.lungime, nr2.lungime);
-    for(i=0;i<nr3.lungime;i++)
-    {
-        nr3.numar[i]=nr1.numar[i]+nr2.numar[i]+rest;
-        rest=nr3.numar[i]/10;
-        nr3.numar[i]=nr3.numar[i]%10;
-    }
-    if(rest!=0)
-    {
-        nr3.lungime=nr3.lungime+1;
-        nr3.numar[nr3.lungime-1]=rest;
-    }
-    return nr3;
+
 }
 
-*/
+
 
