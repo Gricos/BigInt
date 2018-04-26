@@ -10,56 +10,33 @@ class BigInt
     public:
         // ~BigInt();
         ///constructori
-        //BigInt(unsigned long int u=0);
         BigInt(string s="");
         BigInt(int v[], int lg = 0);
+        BigInt(long long u);
+        BigInt(BigInt& nr);
         ///alte functii
         void Afisare();
         int getLungime();
-        void inversare();
+        void Inversare();
+        bool Paritate();
         ///friend
         friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
+        friend BigInt& operator-(BigInt& nr1, BigInt& nr2);
         friend istream &operator>>(istream &is, BigInt&nr);
         friend ostream &operator<<(ostream &os, BigInt&nr);
 };
 
 int main()
 {
-    int x;
-    BigInt numar1, numar2("1234"), numar3;// numar3(3456);
-    cin>>numar1;
-    cout<<numar1;
-    numar3 = numar1 + numar2;
+    BigInt numar1, numar2("1234"), numar3(2342);
+    cout << "Introdu un  > numar2"<<'\n';
+    cin >> numar1;
+    cout << numar1;
+    cout << "Acum o sa afli rezultatul calculului" << '\n';
+    numar3 = numar1 - numar2;
     cout << numar3;
 }
 
-/*
-BigInt::~BigInt()
-{
-  cout << "A mers";
-  delete numar;
-  delete &lungime;
-}
-*/
-
-/*
-BigInt::BigInt(unsigned long int u)
-{
-    int ln, aux, i;
-    while(u!=0)
-    {
-        aux=aux/10;
-        ln++;
-    }
-    this->lungime=ln;
-    this->numar = new int[ln];
-    for(i=0;i<=ln-1;i++)
-    {
-        this->numar[i]=u%10;
-        u=u/10;
-    }
-}
-*/
 ///CONSTRUCTORI
 BigInt::BigInt(string s)
 {
@@ -76,6 +53,29 @@ BigInt::BigInt(int v[], int lg)
     this->numar = new int[lg];
     for(int i = 0; i < lg; i++)
         numar[i] = v[i];
+}
+BigInt::BigInt(long long u)
+{
+    int i, aux;
+    while(aux)
+    {
+        aux/= 10;
+        lungime ++;
+    }
+    this->numar = new int[lungime];
+    while(u)
+    {
+        this->numar[i] = u%10;
+        u/=10;
+        i++;
+    }
+}
+BigInt::BigInt(BigInt& nr)
+{
+    lungime = nr.lungime;
+    numar = new int[lungime];
+    for(int i = 0; i < lungime; i++)
+        numar[i] = nr.numar[i];
 }
 ///OPERATORI
 istream &operator>>(istream &is, BigInt&nr)
@@ -101,7 +101,7 @@ ostream &operator<<(ostream &os, BigInt&nr)
     return os;
 }
 
-///Adunare - merge
+///Adunare
 BigInt& operator+(BigInt& nr1, BigInt& nr2)
 {
     int aux[200]={0}, T = 0, lungime_t;
@@ -151,14 +151,53 @@ BigInt& operator+(BigInt& nr1, BigInt& nr2)
     BigInt rezultat(aux, lungime_t);
     return rezultat;
 }
+
+///Scadere
+BigInt& operator-(BigInt& nr1, BigInt& nr2)
+{
+    int T = 0, lungime_t, aux[200] = {0};
+    lungime_t = nr1.lungime;
+    for(int i = 0; i < nr2.lungime ; i++)
+    {
+        aux[i] = nr1.numar[i] - nr2.numar[i] + T;
+        if(aux[i] < 0)
+        {
+            aux[i] = aux[i] + 10;
+            T = -1;
+        }
+        else
+            T = 0;
+    }
+    for(int i = nr2.lungime; i < lungime_t; i++)
+    {
+        aux[i] = nr1.numar[i] + T;
+        if(aux[i] < 0)
+        {
+            aux[i] = aux[i] + 10;
+            T = -1;
+        }
+        else
+            T = 0;
+    }
+    int i; i = lungime_t - 1;
+    while(aux[i] == 0 && i > 0)
+        i--;
+    lungime_t = i + 1;
+    BigInt rezultat(aux, lungime_t);
+    return rezultat;
+}
+
 ///ALTE FUNCTII
-int BigInt::getLungime(){
+int BigInt::getLungime()
+{
     return this->lungime;
 }
-void BigInt::inversare(){
+void BigInt::Inversare()
+{
     int x[100];
     for(int i = 0; i < this->lungime; i++)
         x[i] = this->numar[i];
     for(int i = 0; i < this->lungime; i++)
         this->numar[i] = x[this->lungime - i - 1];
 }
+
