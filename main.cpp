@@ -68,7 +68,7 @@ BigInt::BigInt(string s)
     this->lungime=ln;
     this->numar = new int[ln];
     for(i=0;i<=ln-1;i++)
-        this->numar[i]=s[i]-'0';
+        this->numar[ln-i-1]=s[i]-'0';
 }
 BigInt::BigInt(int v[], int lg)
 {
@@ -87,7 +87,7 @@ istream &operator>>(istream &is, BigInt&nr)
     nr.lungime=ln;
     nr.numar = new int[ln];
     for(i=0;i<=ln-1;i++)
-        nr.numar[i]=str[i]-'0';
+        nr.numar[i]=str[ln-i-1]-'0';
     return is;
 }
 
@@ -95,7 +95,7 @@ ostream &operator<<(ostream &os, BigInt&nr)
 {
     os<<"Lungimea numarului este : "<<nr.lungime<<'\n';
     os<<"Numarul este : ";
-    for(int i = 0; i < nr.lungime ; i++)
+    for(int i = nr.lungime - 1; i >= 0 ; i--)
         os << nr.numar[i];
     os<<'\n'<<'\n';
     return os;
@@ -106,8 +106,6 @@ BigInt& operator+(BigInt& nr1, BigInt& nr2)
 {
     int aux[200]={0}, T = 0, lungime_t;
     lungime_t = min(nr1.lungime, nr2.lungime);
-    // le inversez ca sa pot calcula cum trebuie
-    nr1.inversare(); nr2.inversare();
     if(nr1.lungime > nr2.lungime)
     {
         for(int i = 0; i < lungime_t; i++)
@@ -151,9 +149,6 @@ BigInt& operator+(BigInt& nr1, BigInt& nr2)
     if(T)
         aux[lungime_t++] = T;
     BigInt rezultat(aux, lungime_t);
-    //aducem numerele la forma potrivita
-    rezultat.inversare();
-    nr1.inversare(); nr2.inversare();
     return rezultat;
 }
 ///ALTE FUNCTII
