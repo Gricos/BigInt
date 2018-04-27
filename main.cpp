@@ -7,38 +7,52 @@ class BigInt
 {
     private:
         int *numar, lungime;
+
     public:
         // ~BigInt();
+
         ///constructori
+
         BigInt(string s="");
         BigInt(int v[], int lg = 0);
         BigInt(long long u);
         BigInt(BigInt& nr);
+
         ///alte functii
+
         void Afisare();
         int getLungime();
         void Inversare();
         bool Paritate();
+
         ///friend
+
         friend bool operator<(BigInt& nr1, BigInt& nr2);
-        //friend bool operator>(BigInt& nr1, BigInt& nr2);
-        //friend bool operator<=(BigInt& nr1, BigInt& nr2);
-        //friend bool operator>=(BigInt& nr1, BigInt& nr2);
-        //friend bool operator==(BigInt& nr1, BigInt& nr2);
-        //friend bool operator!=(BigInt& nr1, BigInt& nr2);
-        friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
+        friend bool operator>(BigInt& nr1, BigInt& nr2);
+        friend bool operator<=(BigInt& nr1, BigInt& nr2);
+        friend bool operator>=(BigInt& nr1, BigInt& nr2);
+        friend bool operator==(BigInt& nr1, BigInt& nr2);
+        friend bool operator!=(BigInt& nr1, BigInt& nr2);
         friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
         friend BigInt& operator-(BigInt& nr1, BigInt& nr2);
         friend istream &operator>>(istream &is, BigInt&nr);
         friend ostream &operator<<(ostream &os, BigInt&nr);
 };
 
+
 int main()
 {
     BigInt numar1, numar2("1234"), numar3(2343), numar4;
+    cin>>numar1>>numar4;
+    if(numar1==numar4)
+        cout<<"egal";
+    else
+        cout<<"nu";
 }
 
+
 ///CONSTRUCTORI
+
 BigInt::BigInt(string s)
 {
     int ln, i;
@@ -48,6 +62,7 @@ BigInt::BigInt(string s)
     for(i=0;i<=ln-1;i++)
         this->numar[ln-i-1]=s[i]-'0';
 }
+
 BigInt::BigInt(int v[], int lg)
 {
     this->lungime = lg;
@@ -55,6 +70,7 @@ BigInt::BigInt(int v[], int lg)
     for(int i = 0; i < lg; i++)
         numar[i] = v[i];
 }
+
 BigInt::BigInt(long long u)
 {
     int i = 0;
@@ -73,6 +89,7 @@ BigInt::BigInt(long long u)
         i++;
     }
 }
+
 BigInt::BigInt(BigInt& nr)
 {
     lungime = nr.lungime;
@@ -80,7 +97,10 @@ BigInt::BigInt(BigInt& nr)
     for(int i = 0; i < lungime; i++)
         numar[i] = nr.numar[i];
 }
+
+
 ///OPERATORI
+
 istream &operator>>(istream &is, BigInt&nr)
 {
     int ln, i;
@@ -104,7 +124,9 @@ ostream &operator<<(ostream &os, BigInt&nr)
     return os;
 }
 
+
 ///Adunare
+
 BigInt& operator+(BigInt& nr1, BigInt& nr2)
 {
     int aux[200]={0}, T = 0, lungime_t;
@@ -155,7 +177,9 @@ BigInt& operator+(BigInt& nr1, BigInt& nr2)
     return rezultat;
 }
 
+
 ///Scadere
+
 BigInt& operator-(BigInt& nr1, BigInt& nr2)
 {
     int T = 0, lungime_t, aux[200] = {0};
@@ -189,43 +213,125 @@ BigInt& operator-(BigInt& nr1, BigInt& nr2)
     BigInt rezultat(aux, lungime_t);
     return rezultat;
 }
+
+
 ///COMPARARE
 
-/*bool operator<(BigInt& nr1, BigInt& nr2);
+bool operator<(BigInt& nr1, BigInt& nr2)
 {
+    int i;
     if(nr1.lungime>nr2.lungime)
         return false;
-    int maxim = max(nr1.lungime, nr2.lungime);
     if(nr1.lungime==nr2.lungime)
     {
-        for(i=0;i<maxim;i++)
+        for(i=nr1.lungime-1;i>=0;i--)
         {
             if(nr1.numar[i]>nr2.numar[i])
+                return false;
+            if(nr1.numar[i]<nr2.numar[i])
+                return true;
         }
     }
-}*/
+    if(nr1.lungime<nr2.lungime)
+        return true;
+    return false;
+}
 
 
-//bool operator>(BigInt& nr1, BigInt& nr2);
+bool operator>(BigInt& nr1, BigInt& nr2)
+{
+    int i;
+    if(nr1.lungime>nr2.lungime)
+        return true;
+    if(nr1.lungime==nr2.lungime)
+    {
+        for(i=nr1.lungime-1;i>=0;i--)
+        {
+            if(nr1.numar[i]>nr2.numar[i])
+                return true;
+            if(nr1.numar[i]<nr2.numar[i])
+                return false;
+        }
+    }
+    if(nr1.lungime<nr2.lungime)
+        return false;
+    return false;
+}
 
 
-//bool operator<=(BigInt& nr1, BigInt& nr2);
+bool operator<=(BigInt& nr1, BigInt& nr2)
+{
+    int i;
+    if(nr1.lungime>nr2.lungime)
+        return false;
+    if(nr1.lungime==nr2.lungime)
+    {
+        for(i=nr1.lungime-1;i>=0;i--)
+        {
+            if(nr1.numar[i]>nr2.numar[i])
+                return false;
+            if(nr1.numar[i]<nr2.numar[i])
+                return true;
+        }
+    }
+    if(nr1.lungime<nr2.lungime)
+        return true;
+    return true;
+}
 
 
-//bool operator>=(BigInt& nr1, BigInt& nr2);
+bool operator>=(BigInt& nr1, BigInt& nr2)
+{
+    int i;
+    if(nr1.lungime>nr2.lungime)
+        return true;
+    if(nr1.lungime==nr2.lungime)
+    {
+        for(i=nr1.lungime-1;i>=0;i--)
+        {
+            if(nr1.numar[i]>nr2.numar[i])
+                return true;
+            if(nr1.numar[i]<nr2.numar[i])
+                return false;
+        }
+    }
+    if(nr1.lungime<nr2.lungime)
+        return false;
+    return true;
+}
 
 
-//bool operator==(BigInt& nr1, BigInt& nr2);
+bool operator==(BigInt& nr1, BigInt& nr2)
+{
+    int i;
+    if(nr1.lungime!=nr2.lungime)
+        return false;
+    for(i=nr1.lungime - 1; i>=0; i--)
+        if(nr1.numar[i]!=nr2.numar[i])
+            return false;
+    return true;
+}
 
 
-//bool operator!=(BigInt& nr1, BigInt& nr2);
+bool operator!=(BigInt& nr1, BigInt& nr2)
+{
+    int i;
+    if(nr1.lungime!=nr2.lungime)
+        return true;
+    for(i=nr1.lungime - 1; i>=0; i--)
+        if(nr1.numar[i]!=nr2.numar[i])
+            return true;
+    return false;
+}
 
 
 ///ALTE FUNCTII
+
 int BigInt::getLungime()
 {
     return this->lungime;
 }
+
 void BigInt::Inversare()
 {
     int x[100];
