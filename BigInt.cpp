@@ -165,6 +165,29 @@ BigInt& operator-(BigInt& nr1, BigInt& nr2)
 }
 
 
+///INMULTIRE
+
+BigInt& operator*(BigInt& nr1, int nr2)
+{
+    int i;
+    int aux[200]={0}, lungime_t;
+    int t=0;
+    lungime_t=nr1.lungime;
+    for(i=0; i<nr1.lungime; i++)
+    {
+        aux[i]=nr1.numar[i]*nr2+t;
+        t=aux[i]/10;
+        aux[i]=aux[i]%10;
+    }
+    while(t)
+    {
+        aux[lungime_t++]=t%10;
+        t/=10;
+    }
+    BigInt nr3(aux, lungime_t);
+    return nr3;
+}
+
 ///COMPARARE
 
 bool operator<(BigInt& nr1, BigInt& nr2)
