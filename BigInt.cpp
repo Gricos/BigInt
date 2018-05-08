@@ -66,7 +66,7 @@ istream &operator>>(istream &is, BigInt&nr)
 
 ostream &operator<<(ostream &os, BigInt&nr)
 {
-    os<<"Lungimea numarului este : "<<nr.lungime<<'\n';
+    //os<<"Lungimea numarului este : "<<nr.lungime<<'\n';
     os<<"Numarul este : ";
     for(int i = nr.lungime - 1; i >= 0 ; i--)
         os << nr.numar[i];
@@ -312,5 +312,10 @@ void BigInt::Inversare()
         x[i] = this->numar[i];
     for(int i = 0; i < this->lungime; i++)
         this->numar[i] = x[this->lungime - i - 1];
+}
+
+bool BigInt::Paritate()
+{
+    return (this->numar[0])%2?0:1;
 }
 
