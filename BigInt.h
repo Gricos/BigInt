@@ -18,7 +18,7 @@ class BigInt
 
         ///destructor
 
-        ~BigInt();
+        //~BigInt();
 
         ///alte functii
 
@@ -26,8 +26,6 @@ class BigInt
         int getLungime();
         void Inversare();
         bool Paritate();
-        void Lista();
-        void Meniu();
 
         ///friend
 
