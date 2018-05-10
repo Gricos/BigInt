@@ -9,14 +9,16 @@ class BigInt
         int *numar, lungime;
 
     public:
-        // ~BigInt();
-
         ///constructori
 
         BigInt(string s="");
         BigInt(int v[], int lg = 0);
         BigInt(long long u);
         BigInt(BigInt& nr);
+
+        ///destructor
+
+        ~BigInt();
 
         ///alte functii
 

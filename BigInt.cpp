@@ -48,7 +48,11 @@ BigInt::BigInt(BigInt& nr)
         numar[i] = nr.numar[i];
 }
 
+///DESTRUCTOR
 
+BigInt::~BigInt(){
+    delete this->numar;
+}
 ///OPERATORI
 
 istream &operator>>(istream &is, BigInt&nr)
@@ -318,4 +322,3 @@ bool BigInt::Paritate()
 {
     return (this->numar[0])%2?0:1;
 }
-

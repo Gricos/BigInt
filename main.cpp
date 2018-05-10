@@ -1,4 +1,6 @@
 #include "BigInt.h"
+#include <conio.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -10,6 +12,7 @@ void Lista(){
     cout << "5. Inmulteste 2 numere"<< '\n';
     cout << "6. Iesire"<< '\n';
     cout << "7. Revezi meniul"<< '\n';
+    cout << "8. Sterge ecranul" << '\n';
 }
 
 void Meniu()
@@ -77,6 +80,11 @@ void Meniu()
                 }
                 break;
             case 7:{
+                Lista();
+            }
+            break;
+            case 8:{
+                system("cls");
                 Lista();
             }
             break;
