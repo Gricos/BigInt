@@ -52,6 +52,8 @@ BigInt::BigInt(BigInt& nr)
 
 BigInt::~BigInt()
 {
+    cout<<"Voi distruge obiectul: "<<'\n';
+    cout<<*this<<'\n';
     delete numar;
 }
 
@@ -174,10 +176,10 @@ BigInt& operator-(BigInt& nr1, BigInt& nr2)
 
 ///INMULTIRE
 
-BigInt operator*(BigInt& nr1, int nr2)
+BigInt operator*(BigInt& nr1, unsigned long long nr2)
 {
     int i;
-    int aux[2000]={0}, lungime_t;
+    int aux[20000]={0}, lungime_t;
     int t=0;
     lungime_t=nr1.lungime;
     for(i=0; i<nr1.lungime; i++)
@@ -186,7 +188,6 @@ BigInt operator*(BigInt& nr1, int nr2)
         t=aux[i]/10;
         aux[i]=aux[i]%10;
     }
-
     while(t)
     {
         aux[lungime_t++]=t%10;
