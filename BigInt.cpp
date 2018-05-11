@@ -49,13 +49,14 @@ BigInt::BigInt(BigInt& nr)
 }
 
 ///DESTRUCTOR
-/*
+
 BigInt::~BigInt()
 {
-    delete this->numar;
+    delete numar;
 }
-*/
+
 ///OPERATORI
+
 
 istream &operator>>(istream &is, BigInt&nr)
 {
@@ -173,10 +174,10 @@ BigInt& operator-(BigInt& nr1, BigInt& nr2)
 
 ///INMULTIRE
 
-BigInt& operator*(BigInt& nr1, int nr2)
+BigInt operator*(BigInt& nr1, int nr2)
 {
     int i;
-    int aux[200]={0}, lungime_t;
+    int aux[2000]={0}, lungime_t;
     int t=0;
     lungime_t=nr1.lungime;
     for(i=0; i<nr1.lungime; i++)
@@ -185,6 +186,7 @@ BigInt& operator*(BigInt& nr1, int nr2)
         t=aux[i]/10;
         aux[i]=aux[i]%10;
     }
+
     while(t)
     {
         aux[lungime_t++]=t%10;
