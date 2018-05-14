@@ -12,10 +12,11 @@ void Lista()
     cout << "2. Compara 2 numere"<< '\n';
     cout << "3. Aduna 2 numere"<< '\n';
     cout << "4. Scade 2 numere"<< '\n';
-    cout << "5. Inmulteste 2 numere"<< '\n';
-    cout << "6. Revezi meniul"<< '\n';
-    cout << "7. Sterge ecranul" << '\n';
-    cout << "8. Iesire"<< '\n';
+    cout << "5. Inmulteste un numar mare cu un scalar"<< '\n';
+    cout << "6. Imparte un numar mare cu un scalar"<< '\n';
+    cout << "7. Revezi meniul"<< '\n';
+    cout << "8. Sterge ecranul" << '\n';
+    cout << "9. Iesire"<< '\n';
 }
 
 void Meniu()
@@ -67,11 +68,13 @@ void Meniu()
                     BigInt numar1, numar2;
                     cout << "Introdu 2 numere (primul mai mare ca celalalt)"<< '\n';
                     cin >> numar1 >> numar2;
-                    if(numar1 >= numar2){
+                    if(numar1 >= numar2)
+                    {
                         numar1 = numar1 - numar2;
                         cout << numar1 << '\n';
                     }
-                    else {
+                    else
+                    {
                         cout << "Numerele nu sunt bune" << '\n';
                     }
                 }
@@ -80,28 +83,42 @@ void Meniu()
                 {
                     BigInt numar1;
                     int numar2;
-                    cout << "Introdu 2 numere(al doilea de maxim 9 cifre)" << '\n';
-                    cin>>numar1>>numar2;
+                    cout << "Introdu numarul mare" << '\n';
+                    cin>>numar1;
+                    cout << "Introdu scalarul de maxim 8 cifre" << '\n';
+                    cin>>numar2;
                     numar1 = numar1 * numar2;
                     cout << numar1 << '\n';
                 }
                 break;
             case 6:
                 {
-                    system("cls");
-                    Lista();
+                    BigInt numar1;
+                    int numar2;
+                    cout << "Introdu numarul mare" << '\n';
+                    cin>>numar1;
+                    cout << "Introdu scalarul de maxim 8 cifre" << '\n';
+                    cin>>numar2;
+                    numar1 = numar1 / numar2;
+                    cout << numar1 << '\n';
                 }
                 break;
             case 7:
                 {
                     system("cls");
+                    Lista();
                 }
-            break;
+                break;
             case 8:
+                {
+                    system("cls");
+                }
+                break;
+            case 9:
                 {
                     ok=true;
                 }
-            break;
+                break;
         };
     }while(!ok);
 }

@@ -46,6 +46,7 @@ class BigInt
         friend bool operator!=(BigInt& nr1, BigInt& nr2);
         friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
         friend BigInt& operator-(BigInt& nr1, BigInt& nr2);
+        friend BigInt operator/(BigInt& nr1, unsigned long long nr2);
         friend BigInt operator*(BigInt& nr1, unsigned long long nr2);
         friend istream &operator>>(istream &is, BigInt&nr);
         friend ostream &operator<<(ostream &os, BigInt&nr);

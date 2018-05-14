@@ -198,6 +198,27 @@ BigInt operator*(BigInt& nr1, unsigned long long nr2)
 }
 
 
+///IMPARTIRE
+
+BigInt operator/(BigInt& nr1, unsigned long long nr2)
+{
+    int i;
+    int aux[20000]={0}, lungime_r;
+    int r=0;
+    lungime_r=nr1.lungime;
+    for(i=lungime_r;i>=0;i--)
+    {
+        r=r*10+nr1.numar[i];
+        aux[i]=r/nr2;
+        r=r%nr2;
+    }
+    while(aux[lungime_r]!=0 && lungime_r>1)
+        lungime_r--;
+    BigInt nr3(aux, lungime_r);
+    return nr3;
+}
+
+
 ///COMPARARE
 
 bool operator<(BigInt& nr1, BigInt& nr2)
