@@ -14,9 +14,10 @@ void Lista()
     cout << "4. Scade 2 numere"<< '\n';
     cout << "5. Inmulteste un numar mare cu un scalar"<< '\n';
     cout << "6. Imparte un numar mare cu un scalar"<< '\n';
-    cout << "7. Revezi meniul"<< '\n';
-    cout << "8. Sterge ecranul" << '\n';
-    cout << "9. Iesire"<< '\n';
+    cout << "7. Restul impartirii unui numar mare cu un scalar"<< '\n';
+    cout << "8. Revezi meniul"<< '\n';
+    cout << "9. Sterge ecranul" << '\n';
+    cout << "10. Iesire"<< '\n';
 }
 
 void Meniu()
@@ -105,16 +106,29 @@ void Meniu()
                 break;
             case 7:
                 {
-                    system("cls");
-                    Lista();
+                    BigInt numar1;
+                    int numar2;
+                    unsigned long long rest;
+                    cout << "Introdu numarul mare" << '\n';
+                    cin>>numar1;
+                    cout << "Introdu scalarul de maxim 8 cifre" << '\n';
+                    cin>>numar2;
+                    rest = numar1 % numar2;
+                    cout << rest << '\n';
                 }
                 break;
             case 8:
                 {
                     system("cls");
+                    Lista();
                 }
                 break;
             case 9:
+                {
+                    system("cls");
+                }
+                break;
+            case 10:
                 {
                     ok=true;
                 }

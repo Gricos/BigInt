@@ -206,18 +206,32 @@ BigInt operator/(BigInt& nr1, unsigned long long nr2)
     int aux[20000]={0}, lungime_r;
     int r=0;
     lungime_r=nr1.lungime;
-    for(i=lungime_r;i>=0;i--)
+    for(i=lungime_r-1;i>=0;i--)
     {
         r=r*10+nr1.numar[i];
         aux[i]=r/nr2;
         r=r%nr2;
     }
-    while(aux[lungime_r]!=0 && lungime_r>1)
+    while(aux[lungime_r-1]==0 && lungime_r>1)
         lungime_r--;
     BigInt nr3(aux, lungime_r);
     return nr3;
 }
 
+
+///MOD
+
+unsigned long long operator%(BigInt& nr1, unsigned long long nr2)
+{
+    int i;
+    unsigned long long r;
+    for(i=nr1.lungime-1;i>=0;i--)
+    {
+        r=r*10+nr1.numar[i];
+        r=r%nr2;
+    }
+    return r;
+}
 
 ///COMPARARE
 
