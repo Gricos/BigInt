@@ -29,6 +29,15 @@ class BigInt
 
         ///friend
 
+        BigInt& operator=(const BigInt& nr1)
+        {
+            delete numar;
+            numar = new int[nr1.lungime];
+            lungime=nr1.lungime;
+            for(int i=0;i<nr1.lungime;i++)
+                numar[i]=nr1.numar[i];
+            return *this;
+        }
         friend bool operator<(BigInt& nr1, BigInt& nr2);
         friend bool operator>(BigInt& nr1, BigInt& nr2);
         friend bool operator<=(BigInt& nr1, BigInt& nr2);
@@ -37,7 +46,9 @@ class BigInt
         friend bool operator!=(BigInt& nr1, BigInt& nr2);
         friend BigInt& operator+(BigInt& nr1, BigInt& nr2);
         friend BigInt& operator-(BigInt& nr1, BigInt& nr2);
-        friend BigInt& operator*(BigInt& nr1, int nr2);
+        friend BigInt operator/(BigInt& nr1, unsigned long long nr2);
+        friend BigInt operator*(BigInt& nr1, unsigned long long nr2);
+        friend unsigned long long operator%(BigInt& nr1, unsigned long long nr2);
         friend istream &operator>>(istream &is, BigInt&nr);
         friend ostream &operator<<(ostream &os, BigInt&nr);
 };

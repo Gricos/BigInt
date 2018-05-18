@@ -50,10 +50,15 @@ BigInt::BigInt(BigInt& nr)
 
 ///DESTRUCTOR
 
-BigInt::~BigInt(){
-    delete this->numar;
+BigInt::~BigInt()
+{
+    cout<<"Voi distruge obiectul: "<<'\n';
+    cout<<*this<<'\n';
+    delete numar;
 }
+
 ///OPERATORI
+
 
 istream &operator>>(istream &is, BigInt&nr)
 {
@@ -171,10 +176,10 @@ BigInt& operator-(BigInt& nr1, BigInt& nr2)
 
 ///INMULTIRE
 
-BigInt& operator*(BigInt& nr1, int nr2)
+BigInt operator*(BigInt& nr1, unsigned long long nr2)
 {
     int i;
-    int aux[200]={0}, lungime_t;
+    int aux[20000]={0}, lungime_t;
     int t=0;
     lungime_t=nr1.lungime;
     for(i=0; i<nr1.lungime; i++)
@@ -190,6 +195,42 @@ BigInt& operator*(BigInt& nr1, int nr2)
     }
     BigInt nr3(aux, lungime_t);
     return nr3;
+}
+
+
+///IMPARTIRE
+
+BigInt operator/(BigInt& nr1, unsigned long long nr2)
+{
+    int i;
+    int aux[20000]={0}, lungime_r;
+    int r=0;
+    lungime_r=nr1.lungime;
+    for(i=lungime_r-1;i>=0;i--)
+    {
+        r=r*10+nr1.numar[i];
+        aux[i]=r/nr2;
+        r=r%nr2;
+    }
+    while(aux[lungime_r-1]==0 && lungime_r>1)
+        lungime_r--;
+    BigInt nr3(aux, lungime_r);
+    return nr3;
+}
+
+
+///MOD
+
+unsigned long long operator%(BigInt& nr1, unsigned long long nr2)
+{
+    int i;
+    unsigned long long r = 0;
+    for(i=nr1.lungime-1;i>=0;i--)
+    {
+        r=r*10+nr1.numar[i];
+        r=r%nr2;
+    }
+    return r;
 }
 
 ///COMPARARE
