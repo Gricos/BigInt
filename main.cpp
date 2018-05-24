@@ -138,8 +138,7 @@ void Meniu()
         };
     }while(!ok);
 }
-
-
+int aux[100000], n, b, r, rest;
 int main()
 {
     Meniu();

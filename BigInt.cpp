@@ -21,18 +21,20 @@ BigInt::BigInt(int v[], int lg)
         numar[i] = v[i];
 }
 
+
 BigInt::BigInt(long long u)
 {
-    int i = 0;
-    long long aux;
-    aux = u;
-    while(aux)
+    int i=0;
+    long long aux=0, lg=0;
+    aux=u;
+    while(aux>0)
     {
-        aux/= 10;
-        lungime ++;
+        aux/=10;
+        lg++;
     }
-    this->numar = new int[lungime];
-    while(u)
+    this->lungime = lg;
+    this->numar = new int[lg];
+    while(u>0)
     {
         numar[i] = u%10;
         u/=10;
@@ -52,8 +54,6 @@ BigInt::BigInt(BigInt& nr)
 
 BigInt::~BigInt()
 {
-    cout<<"Voi distruge obiectul: "<<'\n';
-    cout<<*this<<'\n';
     delete numar;
 }
 
@@ -76,7 +76,7 @@ istream &operator>>(istream &is, BigInt&nr)
 ostream &operator<<(ostream &os, BigInt&nr)
 {
     //os<<"Lungimea numarului este : "<<nr.lungime<<'\n';
-    os<<"Numarul este : ";
+    //os<<"Numarul este : ";
     for(int i = nr.lungime - 1; i >= 0 ; i--)
         os << nr.numar[i];
     os<<'\n'<<'\n';
@@ -86,9 +86,9 @@ ostream &operator<<(ostream &os, BigInt&nr)
 
 ///Adunare
 
-BigInt& operator+(BigInt& nr1, BigInt& nr2)
+BigInt operator+(BigInt& nr1, BigInt& nr2)
 {
-    int aux[200]={0}, T = 0, lungime_t;
+    int aux[100000]={0}, T = 0, lungime_t;
     lungime_t = min(nr1.lungime, nr2.lungime);
     if(nr1.lungime > nr2.lungime)
     {
@@ -139,9 +139,9 @@ BigInt& operator+(BigInt& nr1, BigInt& nr2)
 
 ///Scadere
 
-BigInt& operator-(BigInt& nr1, BigInt& nr2)
+BigInt operator-(BigInt& nr1, BigInt& nr2)
 {
-    int T = 0, lungime_t, aux[200] = {0};
+    int T = 0, lungime_t, aux[100000] = {0};
     lungime_t = nr1.lungime;
     for(int i = 0; i < nr2.lungime ; i++)
     {
@@ -203,7 +203,7 @@ BigInt operator*(BigInt& nr1, unsigned long long nr2)
 BigInt operator/(BigInt& nr1, unsigned long long nr2)
 {
     int i;
-    int aux[20000]={0}, lungime_r;
+    int aux[10000]={0}, lungime_r;
     int r=0;
     lungime_r=nr1.lungime;
     for(i=lungime_r-1;i>=0;i--)
